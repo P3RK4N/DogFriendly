@@ -1,0 +1,191 @@
+1. sastanak
+• Datum: 12. listopada 2022.
+• Prisustvovali: T.Piveta, A. Žanko, L.Novosel, B.Perković, M.Hitl, N.Bukvić, D.Penava
+• Teme sastanka:
+– izbor naziva tima
+– izbor izmedu rada s asistentom ili pod vodstvom tvrtke CROZ
+
+2. sastanak
+• Datum: 15. listopada 2022.
+• Prisustvovali: T.Piveta, A. Žanko, L.Novosel, B.Perković, M.Hitl, N.Bukvić, D.Penava
+• Teme sastanka:
+– razgovor o predloženom zadatku (Dog Friendly)
+– konačan odabir alata i tehnologije (Spring i React)
+– podjela zadataka (proučiti rad u Gitu)
+
+3. sastanak
+• Datum: 20. listopada 2022.
+• Prisustvovali: T.Piveta, A. Žanko, L.Novosel, B.Perković, M.Hitl, N.Bukvić, D.Penava
+• Teme sastanka:
+– sastanak s asistentom i demonstratorom
+– asistent potvrdio dosadašnje odluke grupe o tehnologijama
+
+4. sastanak
+• Datum: 20. listopada 2022.
+• Prisustvovali: T.Piveta, A. Žanko, L.Novosel, B.Perković, M.Hitl, N.Bukvić, D.Penava
+• Teme sastanka:
+– prijedlozi izgleda stranice
+– razgovor o daljnjem toku projekta
+– L.Novosel postavljen vodom backend-a, T.Piveta vodom frontend-a
+– podjela zadataka (naučiti više o tehnologijama Spring i React)
+
+5. sastanak
+• Datum: 25. listopada 2022.
+• Prisustvovali: T.Piveta, M.Hitl, D.Penava
+• Teme sastanka:
+– dogovor o finalnom izgledu početne stranice
+– podjela zadataka (header, footer, dokumentiranje zahtjeva)
+– dogovor o strukturi grana na GitLabu
+
+6. sastanak
+• Datum: 25. listopada 2022.
+• Prisustvovali: T.Piveta, A. Žanko, L.Novosel, B.Perković, N.Bukvić
+• Teme sastanka:
+– dogovor o strukturi baze
+– podjela zadataka (user, owner, business, card)
+
+7. sastanak
+• Datum: 26. listopada 2022.
+• Prisustvovali: T.Piveta, D.Penava, M.Hitl
+• Teme sastanka:
+– odabir DogFriendly i Simplicity loga
+
+8. sastanak
+• Datum: 29. listopada 2022.
+• Prisustvovali: T.Piveta, B.Perković, M.Hitl, D.Penava
+• Teme sastanka:
+– pojašnjenje karte u dokumentaciji
+– razjašnjenje problema u dokumentaciji
+
+9. sastanak
+• Datum: 29. listopada 2022.
+• Prisustvovali: T.Piveta, A. Žanko, L.Novosel, N.Bukvić
+• Teme sastanka:
+– rasprava o načinu registracije vlasnika obrta (3-step registration ili produžetak forme za registraciju)
+– razgovor o sigurnosti web aplikacije
+
+10. sastanak
+• Datum: 31. listopada 2022.
+• Prisustvovali: A. Žanko, T.Piveta, M.Hitl, D.Penava, B.Peković, L.Novosel, N.Bukvić
+• Teme sastanka:
+– dogovor o stranici za registraciju (izgled i komunikacija fronta i backa)
+– podjela zadataka
+
+11. sastanak
+• Datum: 2. studenog 2022.
+• Prisustvovali: A. Žanko, T.Piveta, B.Peković, L.Novosel, N.Bukvić
+• Teme sastanka:
+– dogovor o stranici za registraciju (izgled i komunikacija fronta i backa)
+– podjela zadataka
+
+12. sastanak
+• Datum: 5. studenog 2022.
+• Prisustvovali: L.Novosel, N.Bukvić, B.Perković
+• Teme sastanka:
+– spajanje grana
+– zajedničko povezivanja i nadopuna koda
+
+13. sastanak
+• Datum: 5. studenog 2022.
+• Prisustvovali: L.Novosel, N.Bukvić
+• Teme sastanka:
+– dokumentacija (tablice i dijagram baza, dijagram klasa)
+
+14. sastanak
+• Datum: 5. studenog 2022.
+• Prisustvovali: T.Piveta, M.Hitl, D.Penava
+• Teme sastanka:
+– revizija rada
+– razgovor o budućim zadacima
+
+15. sastanak
+• Datum: 8. studenog 2022.
+• Prisustvovali: A. Žanko, T.Piveta, M.Hitl, D.Penava, B.Perković, L.Novosel, N.Bukvić
+• Teme sastanka:
+– evaluacija dosadašnjeg rada
+– podjela zadataka (stranica korisnika, karta, autentifikacija na frontu, spajanje s bazom podataka)
+
+16. sastanak
+• Datum: 10. studenog 2022.
+• Prisustvovali: A. Žanko, T.Piveta, M.Hitl, D.Penava, B.Perković, L.Novosel, N.Bukvić
+• Teme sastanka:
+– sastanak s asistenticom - komentiranje dokumentacije, dijagrama
+klasa, obrazaca upotrebe i samog koda
+– preinake baze podataka i stranice za registraciju
+– podjela zadataka (registracija, dokumentacija)
+
+17. sastanak
+• Datum: 10. studenog 2022.
+• Prisustvovali: T.Piveta, L.Novosel, N.Bukvić
+• Teme sastanka:
+– uspješna registracija korisnika
+– definiranje problema kod registracije vlasnika obrta
+
+18. sastanak
+• Datum: 11. studenog 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta
+• Teme sastanka:
+– preinake backa za front
+– uspješna registracija korisnika
+– definiranje problema kod registracije vlasnika obrta
+
+19. sastanak
+• Datum: 14. studenog 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– razgovor o web aplikaciji, svim promjenama i problemima
+– podjela zadataka (dokumentacija, aplikacija)
+
+20. sastanak
+• Datum: 17. studenog 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– demonstracija generičkih funkcionalnosti pred asistenticom i demonstratoricom
+
+21. sastanak
+• Datum: 18. studenog 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– završni deploy aplikacije
+– popunjavanje dokumentacije za predaju
+
+22. sastanak
+• Datum: 5. prosinca 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– objašnjavanje koda i komentiranje projekta
+
+23. sastanak
+• Datum: 15. prosinca 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– dogovor oko markera na mapi
+– generalizacija korisnika
+– lokacija i ocjene na backendu
+
+24. sastanak
+• Datum: 20. prosinca 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– podjela posla za kartu i profil
+
+25. sastanak
+• Datum: 21. prosinca 2022.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– dogovor oko rada za praznike vezano uz dokumentaciju i kod
+
+26. sastanak
+• Datum: 5. siječnja 2023.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– posljednji detalji na frontendu
+– plan testiranja na backendu
+
+27. sastanak
+• Datum: 13. siječnja 2023.
+• Prisustvovali: L.Novosel, M.Hitl, D.Penava, B.Perković, T.Piveta, A. Žanko, N.Bukvić
+• Teme sastanka:
+– provjere dokumentacije i popisivanje aktivnosti
+– deployment
+

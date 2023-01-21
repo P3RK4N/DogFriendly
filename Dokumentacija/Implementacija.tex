@@ -1,0 +1,601 @@
+\chapter{Implementacija i korisničko sučelje}
+		
+		
+		\section{Korištene tehnologije i alati}
+		
+		\text U nabrajanju korištenih tehnologija i alata krećemo s onima koji su realizirali komunikaciju u timu, Discord\footnote{\url{https://discord.com/}}, te komunikaciju s asistentom i demosom, Microsoft Teams\footnote{\url{https://www.microsoft.com/en-us/microsoft-teams/log-in}}. Navedeni su omogućili dopisivanje, "glasovne razgovore", kao i mogućnost dijeljenja slika i zaslona u stvarnom vremenu.
+        Istovremeni rad i brzo dijeljenje koda omogućio je Git\footnote{\url{https://git-scm.com/}}, specifično udaljeni repozitorij projekta na web platformi GitLab\footnote{\url{https://about.gitlab.com/}}.
+
+        Korišteno razvojno okruženje na backendu su IntelliJ\footnote{\url{https://www.jetbrains.com/idea/}} i Eclipse\footnote{\url{https://www.eclipse.org/ide/}}. IntelliJ IDEA je integrirano razvojno okruženje (IDE) napisano u Javi\footnote{\url{https://www.oracle.com/java/}} za razvoj računalnog softvera napisanog u Javi, Kotlinu, Groovyju i drugim jezicima koji se temelje na JVM-u. Razvio ga je JetBrains (ranije poznat kao IntelliJ).
+        Eclipse je također IDE koje se koristi u računalnom programiranju. Sadrži osnovni radni prostor i proširivi plug-in sustav za prilagođavanje okruženja. Primarna mu je upotreba za razvoj Java aplikacija, no može se koristit i u drugim programskim jezicima putem dodataka.
+        Većina pripadnika grupe je koristila IntelliJ jer je Git podržan i integriran unutar IntelliJa te su ga smatrali bolje prilagođenom korisniku u odnosu na Eclipse.
+        
+        Na frontendu je kao razvojno okruženje korišten Visual Studio Code\footnote{\url{https://code.visualstudio.com/}} također poznat kao VS Code. Napravio ga je Microsoft s Electron Frameworkom, za Windows, Linux i MacOS. Po definiciji je "uređivač izvornog koda" s mnogim značajkama od kojih je jedna ugrađeni Git. Koristili smo ga zbog jednostavnosti uporabe i prilagođenosti korisniku zbog čega je i rangiran kao jedan od najpopularnijih alata za razvojno okruženje.
+
+        Aplikacija je pisana koristeći radni okvir Spring framework\footnote{\url{https://spring.io/projects/spring-framework}} i jezik Java\footnote{\url{https://www.oracle.com/java/}} na backendu te React\footnote{\url{https://reactjs.org/}} i kombinaciju TypeScripta\footnote{\url{https://www.typescriptlang.org/}}, HTML-a\footnote{\url{https://html.com/}} i CSS-a\footnote{\url{https://en.wikipedia.org/wiki/CSS}} na frontendu.
+        
+        Spring framework je jednostavni Java razvojni okvir otvorenog koda koji pruža programski i konfiguracijski model za razvoj Java aplikacija na visokoj razini. Cilj mu je omogućiti programerima efektivnije i brže programiranje aplikacija pojednostavljanjem Jave. Spring uključuje mnoge module i ekstenzije od kojih smo u projektu koristili Spring Boot\footnote{\url{https://spring.io/projects/spring-boot}}, Spring Security\footnote{\url{https://spring.io/projects/spring-security}} i Spring Data\footnote{\url{https://spring.io/projects/spring-data}}.
+        
+        Java, temelj backenda, je objektno orijentirani programski jezik visoke razine koji se temelji na klasama i dizajniran je da ima što manje ovisnosti o implementacijama. Namijenjen je kako bi programeri svoj kod napisi samo jednom te ga pokrenu bilogdje jer se kompajlirani Java kod može izvoditi na svim platformama koje podržavaju Javu bez potrebe za ponovnim kompajliranjem.
+        
+        Na frontendu, najčešće korištena kombinacija za stvaranje web aplikacija/stranica je HTML (stvaranje i funkcionalnost stranice), CSS (stilski jezik koji opisuje prezentaciju dokumenta pisanog u HTMLu, u ovom slučaju) i JS\footnote{\url{https:/https://www.javascript.com/}} (programski jezik koji je jedan od temeljnih tehnologija WWW-a uz HTML i CSS). U našem slučaju se koristi kombinacija HTMLa, CSSa i TypeScripta. TypeScript je besplatni programski jezik otvorenog koda koji je razvijen i održavan od strane Microsofta. Razlika TypeScripta i JavaScripta je u tome što je TypeScript nastao iz JavaScripta kada su programeri JSa došli do zaključka da nije ispunio ideju iz koje je nastao (objektno orijentiran programski jezik) te je vremenom postao težak i kompleksan. Produkt toga je TypeScript, objektno orijentirani programski jezik koji se može koristit bilogdje, na svakom web-pregledniku, mobilu i OS-u. TSX podržava sučelja, ukazuje na greške u kodu prije kompilacije i podržava static tipove za razliku od JS-a. U globalu, JavaScript je TypeScript jer se može konvertirati samom promjenom ekstenzije, no TSX nije JS, već njegova jednostavnija objektno orijentirana verzija.
+        
+        Kao i na backu, frontend se bazira na derivatu JavaScripta, specifično Reactu, JavaScript biblioteci za izradu korisničkih sučelja, koju je 2013. razvio Meta(Facebook) te se dan danas koristi za mnoge web i mobilne aplikacije.Bazira se na komponentama koje veličinom mogu varirati od gumba, polja pa do obrasca i većih. Komponente mogu upravljati svojim stanjem i priopćiti to stanje podređenim komponentama.
+
+        Baza podataka se nalazi na poslužitelju u oblaku Render\footnote{\url{https://render.com/}}. Za lokalni uvid u bazu podataka smo koristili pgAdmin\footnote{\url{https://www.pgadmin.org/}},najpopularniju administrativnu i razvojnu platformu otvorenog koga s bogatim značajkama za PostgreSQL\footnote{\url{https://www.postgresql.org/}}, najnapredniju bazu podataka otvorenog koda na svijetu. PostresSQL je besplatan sustav za upravljanje relacijskim bazama podataka otvorenog koda s naglaskom na proširivost i uklađenost sa SQL-om.
+
+        Za izradu UML dijagrama smo koristili Astah\footnote{\url{https://portal.azure.com/}}.
+
+        
+        
+        \newpage
+		\section{Ispitivanje programskog rješenja}
+  
+        \textbf{Testiranje komponenti}{ provedeno je koristeći JUnit \textit{SpringRunner.class} te anotaciju \textit{@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = DogFriendlyApplication.class)}. Za potrebe testiranja stvorena je nova H2 baza podataka te se podaci za nju nalaze u datotetci appplication-unitTest.properties. Ovim putem imitiramo bazu podataka aplikacije kako ne bi utjecali na njen sadržaj prilikom testiranja.
+         
+         Za testiranje izabrali smo komponentu registracije vlasnika obrta. Registracijom se stvara objekt Owner (generalizacija objekta User) koji posljedično stvara objekte Business i Card. Za svaki test ispituje se ispravan unos metodom \textit{assertDoesNotThrow()}, nekoliko primjera krivog unosa podataka metodom \textit{assertThrows()}, a u slučajevima jedinstvenih vrijednosti ispituje se ponovni unos iste vrijednosti također metodom \textit{assertThrows()}. Nakon svakog testa podaci se brišu iz baze podataka kako bi ona bila spremna za novo testiranje.}
+         \newline
+
+         
+         \textbf{Testiranje sustava}{...}
+			
+			
+	
+			
+			\subsection{Ispitivanje komponenti}
+            \textbf{Za sve ispitne slučajeve}{ koriste se navedeni podaci:}
+           \begin{lstlisting}
+private static final String username = "user";
+private static final String email = "user.dogfriendly@gmail.com";
+private static final String password = "lozinka123";
+private static final String businessName = "PET_SHOP";
+private static final String businessType = "SHOP";
+private static final String businessAddress = "Zagrebacka 5";
+private static final String businessCity = "Zagreb";
+private static final String businessOIB = "01234567890";
+private static final String businessMobileNumber = "+385 99-234-56-78";
+private static final String businessDescription = "Prodajemo sve za kucne ljubimce";
+private static final String cardNumber = "0000111122223333";
+private static final String expiryDateMonth = "5";
+private static final String expiryDateYear = "2025";
+private static final String cvv3 = "123";
+private static final String cvv4 = "1234";
+        \end{lstlisting}
+   
+   			\textbf{1. ispitni slučaj}{ namijenjen je provjeri korisničkog imena prilikom registracije vlasnika obrta. Prvo se kreira jedan objekt razreda "Owner" s točnim podacima. Zatim se testira unošenje krivog korisničkog imena. Prvi primjer je vrijednost null, drugi primjer je prazno polje, treći primjer je krivi format imena. Na samom kraju testira se registracija novog korisnika s korisničkim imenom koje je već zauzeto.}
+           \begin{lstlisting}
+@Test
+@Order(1)
+public void registrationCheckUsername() {
+//CHECK ALL INFO
+assertDoesNotThrow(() -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+assertThrows(Exception.class, () -> userService.createOwner(null, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+assertThrows(Exception.class, () -> userService.createOwner("", email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+assertThrows(Exception.class, () -> userService.createOwner("?_kriviUsername", email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+//SAME USERNAME
+assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+User user = userService.getUserByUsername(username);
+profileService.deleteUserById(user.getId());
+}
+        \end{lstlisting}
+
+        \textbf{2. ispitni slučaj}{ namijenjen je provjeri e-mail adrese prilikom registracije vlasnika obrta. Prvo se kreira jedan objekt razreda "Owner" s točnim podacima. Zatim se testira unošenje krive e-mail adrese. Prvi primjer je vrijednost null, drugi primjer je prazno polje, treći primjer je krivi format. Na samom kraju testira se registracija novog korisnika s e-mail adresom koja je već zauzeta.}
+           \begin{lstlisting}
+@Test
+@Order(2)
+public void registrationCheckEmail() {
+    //CHECK ALL INFO
+    assertDoesNotThrow(() -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    assertThrows(Exception.class, () -> userService.createOwner(username, null, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, "", password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, "neispravanEmail", password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    //SAME EMAIL
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    User user = userService.getUserByUsername(username);
+    profileService.deleteUserById(user.getId());
+}
+        \end{lstlisting}
+
+        \textbf{3. ispitni slučaj}{ namijenjen je provjeri imena obrta prilikom registracije vlasnika obrta. Prvo se kreira jedan objekt razreda "Owner" s točnim podacima. Zatim se testira unošenje krivog imena. Prvi primjer je vrijednost null, drugi primjer je prazno polje, treći primjer je predugačko ime (više od 50 znakova). Na samom kraju testira se registracija novog korisnika, a time i novog obrta s imenom koje je već zauzeto.}
+           \begin{lstlisting}
+@Test
+@Order(3)
+public void registrationCheckBusinessName() {
+    //CHECK ALL INFO
+    assertDoesNotThrow(() -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, null, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, "", businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, "Ovo je preveliko odnosno predugačko ime za postaviti nekom obrtu na našoj stranici", businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    //SAME NAME
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, null, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    User user = userService.getUserByUsername(username);
+    profileService.deleteUserById(user.getId());
+}
+        \end{lstlisting}
+
+        \textbf{4. ispitni slučaj}{ namijenjen je provjeri OIB-a obrta prilikom registracije vlasnika obrta. Prvo se kreira jedan objekt razreda "Owner" s točnim podacima. Zatim se testira unošenje krivog OIB-a. Prvi primjer je vrijednost null, drugi primjer je prazno polje, treći primjer je prekratak OIB (manje od 11 znakova), četvrti primjer je predugačak OIB (više od 11 znakova) i peti primjer je unos znakova koji nisu znamenke. Na samom kraju testira se registracija novog korisnika, a time i novog obrta s OIB-om koji je već zauzet.}
+           \begin{lstlisting}
+@Test
+@Order(4)
+public void registrationCheckBusinessOIB() {
+    //CHECK ALL INFO
+    assertDoesNotThrow(() -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, null, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, "", businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, "0123456789", businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, "012345678901", businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, "0123456789a", businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    //SAME OIB
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    User user = userService.getUserByUsername(username);
+    profileService.deleteUserById(user.getId());
+}
+        \end{lstlisting}
+
+        \textbf{5. ispitni slučaj}{ namijenjen je provjeri broja kartice prilikom registracije vlasnika obrta. Prvo se kreira jedan objekt razreda "Owner" s točnim podacima. Zatim se testira unošenje krivog broja kartice. Prvi primjer je vrijednost null, drugi primjer je prazno polje, treći primjer je prekratak broj (manje od 16 znakova), četvrti primjer je predugačak broj (više od 16 znakova) i peti primjer je unos znakova koji nisu isključivo znamenke iako je točna duljina unosa.}
+           \begin{lstlisting}
+@Test
+@Order(5)
+public void registrationCheckCardNumber() {
+    //CHECK ALL INFO
+    assertDoesNotThrow(() -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, null, expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, "", expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, "0000", expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, "00001111222233334", expiryDateMonth, expiryDateYear, cvv3));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, "aaaabbbbccccdddd", expiryDateMonth, expiryDateYear, cvv3));
+
+    User user = userService.getUserByUsername(username);
+    profileService.deleteUserById(user.getId());
+}
+        \end{lstlisting}
+
+        \textbf{6. ispitni slučaj}{ namijenjen je provjeri kontrolnog broja kartice (CVV) prilikom registracije vlasnika obrta. Prvo se kreira jedan objekt razreda "Owner" s točnim podacima i koristi se duljina kontrolnog broja od 3 znaka. Zatim se testira unošenje krivog CVV-a. Prvi primjer je vrijednost null, drugi primjer je prazno polje, treći primjer je prekratak broj (manje od 3 znaka), četvrti primjer je predugačak broj (više od 4 znaka) i peti primjer je unos znakova koji nisu isključivo znamenke iako je točna duljina unosa. Na samom kraju testira se registracija s kontrolnim brojem duljine 4 što je isto dozvoljena vrijednost.}
+        \begin{lstlisting}
+@Test
+@Order(6)
+public void registrationCheckCVV() {
+    //CHECK ALL INFO
+    assertDoesNotThrow(() -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv3));
+
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, null));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, ""));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, "12"));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, "12345"));
+    assertThrows(Exception.class, () -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, "abc"));
+
+    User user = userService.getUserByUsername(username);
+    profileService.deleteUserById(user.getId());
+
+    assertDoesNotThrow(() -> userService.createOwner(username, email, password, businessName, businessType, businessAddress, businessCity, businessOIB, businessMobileNumber, businessDescription, cardNumber, expiryDateMonth, expiryDateYear, cvv4));
+
+    user = userService.getUserByUsername(username);
+    profileService.deleteUserById(user.getId());
+}
+        \end{lstlisting}
+
+        \textbf{Rezultati testiranja}{ prikazani su na slici.}
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/TestoviKomponentiRezultat.png} 
+			        \caption{Rezultati JUnit testova}
+			    \label{fig:Rezultati JUnit testova}
+		\end{figure}
+			
+			
+			\subsection{Ispitivanje sustava}
+
+
+        \textbf{}{Ispitivanje sustava se provelo pomoću radnog okvira Selenium. Specifičnije, prva dva od sedam testova se obradilo koristeći Selenium WebDriver, te preostalih pet od sedam testova se obradilo pomoću dodatka za pregldednik Selenium IDE. U svim testovima, pregledniku je odbijen pristup lokaciji zbog lakšeg testiranja.}
+        \textbf{}{
+        
+        }
+        \textbf{}{Prvi test registrira prvog korisnika na stranicu, uz to da se testiraju moguće greške koje bi običan korisnik mogao pokušati napraviti. Prvo, test pokušava prijaviti korisnika kao da već postoji. Sustav mu ne daje da se prijavi jer njegov korisnički račun još ne postoji. Nakon što se potvrdi da je došlo do upozorenja, test ide registrirati korisisnika. Test prvo pokuša registrirati korisnika bez ikakvih unošenih podataka. Nakon što se potvrdi pojavljivanje upozorenja, sustav pokušava unositi podatatke koje sustav ne prihvaća sve dok mu sustav ne prestane bacati upozorenja za neprihvatljive podatke. Kada su unešeni podaci ispravni, sustav omogućuje testu da registrira prvog korisnika.}
+        \begin{lstlisting}
+@Test
+public void seleniumWebUserRegistration() {
+    WebDriver driver = new ChromeDriver();
+    System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\chromedriver.exe");
+    driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+    driver.get("http://localhost:3000/");
+
+    driver.findElement(By.xpath("//a[@href='/auth/login']")).click();
+
+    WebElement element = driver.findElement(By.id("username"));
+    element.sendKeys("DF_TestUser");
+    element = driver.findElement(By.id("password"));
+    element.sendKeys("123");
+
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+    if(driver.findElement(By.className("error-container")).isDisplayed()) System.out.println("Element is Visible");
+
+    driver.findElement(By.xpath("//a[@href='/auth/register']")).click();
+    driver.findElement(By.xpath("//a[@href='/auth/register/user']")).click();
+
+    element = driver.findElement(By.id("username"));
+    element.sendKeys("DF_TestUser");
+    element = driver.findElement(By.id("email"));
+    element.sendKeys("user");
+    element = driver.findElement(By.id("password"));
+    element.sendKeys("123");
+
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+    if(driver.findElement(By.id("email-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("password-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+
+    element = driver.findElement(By.id("email"));
+    element.sendKeys(Keys.CONTROL + "a");
+    element.sendKeys(Keys.DELETE);
+    element.sendKeys("dogfriendly.test.owner1@gmail.com");
+    element = driver.findElement(By.id("password"));
+    element.sendKeys(Keys.CONTROL + "a");
+    element.sendKeys(Keys.DELETE);
+    element.sendKeys("12345678");
+
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+    boolean compRes = new WebDriverWait(driver, Duration.ofSeconds(40))
+            .until(ExpectedConditions.urlToBe("http://localhost:3000/auth/login"));
+
+    String redirURL = driver.getCurrentUrl();
+    compRes = redirURL.contains("auth/login");
+    if (!driver.findElement(By.className("registration-message")).isDisplayed()) compRes = false;
+    assertEquals(compRes, true);
+
+    driver.quit();
+}
+        \end{lstlisting}
+
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/passed-selenium1.png} 
+			        \caption{Rezultat prvog Selenium testa}
+			    \label{fig:Rezultat prvog Selenium testa}
+		\end{figure}
+
+        \textbf{}{Drugi Test je gotovo isti kao i prvi test uz razliku da test pokušava registrirati vlasnika obrta, a ne korisnika. Uz registraciju vlasnika obrta se registrira i novi obrt kojem je vlasnik upravo registrirani vlasnik obrta.}
+        \begin{lstlisting}
+@Test
+public void seleniumOwnerRegistration() {
+    WebDriver driver = new ChromeDriver();
+    driver.manage().window().setSize(new Dimension(700, 1300));
+    System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\chromedriver.exe");
+    driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+    driver.get("http://localhost:3000/");
+
+    driver.findElement(By.className("hamburger")).click();
+    driver.findElement(By.className("hamburger")).click();
+    driver.findElement(By.className("hamburger")).click();
+    driver.findElement(By.xpath("//div[@class='menu-dropdown']/div[3]")).click();
+
+    driver.findElement(By.xpath("//a[@href='/auth/register']")).click();
+    driver.findElement(By.xpath("//a[@href='/auth/register/owner']")).click();
+
+    // REGISTRIRAJ SE
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+    if(driver.findElement(By.id("username-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("email-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("password-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("businessName-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("businessAdress-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("businessCity-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("businessOIB-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("businessMobileNumber-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+    if(driver.findElement(By.id("cardNumber-helper-text")).isDisplayed()) System.out.println("Element is Visible");
+
+    // Upisujemo podatke vlasnika obrta
+    WebElement element = driver.findElement(By.id("username"));
+    element.sendKeys("DF_TestOwner");
+    element = driver.findElement(By.id("email"));
+    element.sendKeys("dogfriendly.test.owner@gmail.com");
+    element = driver.findElement(By.id("password"));
+    element.sendKeys("12345678");
+    element = driver.findElement(By.id("businessName"));
+    element.sendKeys("TestingBusiness");
+
+    driver.findElement(By.xpath("//form[@class='register-form']/div/div[5]")).click();
+    driver.findElement(By.xpath("//li[@data-value='VET']")).click();
+
+    element = driver.findElement(By.id("businessAdress"));
+    element.sendKeys("Unska ul. 3");
+    element = driver.findElement(By.id("businessCity"));
+    element.sendKeys("Zagreb");
+    element = driver.findElement(By.id("businessOIB"));
+    element.sendKeys("OIB0123456789OIB"); // WARNING
+    element = driver.findElement(By.id("businessMobileNumber"));
+    element.sendKeys("Broj telefona: +012/3456-789"); // WARNING
+    element = driver.findElement(By.id("businessDescription"));
+    element.sendKeys("Generic description.");
+    element = driver.findElement(By.id("cardNumber"));
+    element.sendKeys("Card Number 123456789"); // WARNING
+    driver.findElement(By.id("expiryDateMonth")).click();
+    driver.findElement(By.xpath("//div[@role='presentation']/div[3]/ul/li[2]")).click();
+    driver.findElement(By.id("getExpiryDateProps")).click();
+    driver.findElement(By.xpath("//div[@role='presentation']/div[3]/ul/li[4]")).click();
+    element = driver.findElement(By.id("cvv"));
+    element.sendKeys("1"); // WARNING
+
+    // REGISTRIRAJ SE
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+    element = driver.findElement(By.id("businessOIB"));
+    element.sendKeys(Keys.CONTROL + "a");
+    element.sendKeys(Keys.DELETE);
+    element.sendKeys("01234567890");
+    element = driver.findElement(By.id("businessMobileNumber"));
+    element.sendKeys(Keys.CONTROL + "a");
+    element.sendKeys(Keys.DELETE);
+    element.sendKeys("+012/3456-789");
+    element = driver.findElement(By.id("cardNumber"));
+    element.sendKeys(Keys.CONTROL + "a");
+    element.sendKeys(Keys.DELETE);
+    element.sendKeys("1234567890123456");
+    element = driver.findElement(By.id("cvv"));
+    element.sendKeys(Keys.CONTROL + "a");
+    element.sendKeys(Keys.DELETE);
+    element.sendKeys("123");
+
+    // REGISTRIRAJ SE
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+    boolean compRes = new WebDriverWait(driver, Duration.ofSeconds(40)).until(ExpectedConditions.urlToBe("http://localhost:3000/auth/login"));
+
+    String redirURL = driver.getCurrentUrl();
+    compRes = redirURL.contains("auth/login");
+    if (!driver.findElement(By.className("registration-message")).isDisplayed()) compRes = false;
+    assertEquals(compRes, true);
+
+    driver.quit();
+}
+        \end{lstlisting}
+
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/passed-selenium2.png} 
+			        \caption{Rezultat drugog Selenium testa}
+			    \label{fig:Rezultat drugog Selenium testa}
+		\end{figure}
+
+        \textbf{}{Treći test dodaje dvije lokacije na mapi kao prvi registrirani korisnik te mijenja ocjenu lokacije. Ovaj test je napravljen da se može vidjeti mogućnost mijenjanja ocjena na lokacijama. Prvo, test se prijavi kao prvi registrirani korisnik, nakon čega dodaje dvije lokacije s pozitivnim ocjenama. Lokacija1 pod kategorijom park, te Lokacija2 pod kategorijom restoran. Nakon dodavanja lokacija, test ide promijeniti ocjenu na prvoj lokaciji. Kad se ocjena promijeni, test ide na stranicu karte i provjerava je li postotak pozitivnog mišljenja preuređen na nula posto.}
+
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/passed-selenium3.png} 
+			        \caption{Rezultat trećeg Selenium testa}
+			    \label{fig:Rezultat trećeg Selenium testa}
+		\end{figure}
+
+        \textbf{}{Četvrti test pokazuje da drugi korisnici mogu ocjenjivati lokaciju koji su stvorili drugi korisnici. U ovom testu, test registrira novog korisnika te kao novi korisnik, ocjenjuje prvo dodanu lokaciju, Lokacija1. Nakon ponovnog učitavanja stranice, vidi se da se postotak pozitivnog mišljenja promijenio sa nula posto na pedeset posto.}
+
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/passed-selenium4.png} 
+			        \caption{Rezultat četvrtog Selenium testa}
+			    \label{fig:Rezultat četvrtog Selenium testa}
+		\end{figure}
+        
+        \textbf{}{Pomoću petog testa, prikazuje se funkcionalnost tražilice i filtera na stranici mape. Kada otvorimo stranicu sa mapom i utipkamo u tražilici "lokacija", dobijemo Lokacija1 i Lokacija2 kao rezultat. Ako na filteru maknemo restorane, vidi se da sad na tražilici Lokacija2 više nije rezultat tražilice jer je ona svrstana pod kategorijom restorana.}
+
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/passed-selenium5.png} 
+			        \caption{Rezultat petog Selenium testa}
+			    \label{fig:Rezultat petog Selenium testa}
+		\end{figure}
+
+        \textbf{}{Šesti test prikazuje da će lokacija na mapi ostati zapisana unatoč tome što se korisnički račun autora lokacije izbrisao. Ostat će na mapi sve dok postoji neki korisnik koji je dao ocjenu za tu istu lokaciju. U ovom slučaju, test briše korisnički račun prvog korisnika. Poslije test ide na mapu da vidi da se ocjena lokacije promijenila, ali nije i nestala, nakon što se izbrisao račun.}
+
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/passed-selenium6.png} 
+			        \caption{Rezultat šestog Selenium testa}
+			    \label{fig:Rezultat šestog Selenium testa}
+		\end{figure}
+
+        \textbf{}{Kao račun vlasnika obrta iz drugog testa, sedmi test promovira obrt tog istog računa. Kada se obrt promovira, obrt mogu vidjeti drugi korisnici, a i sam vlasnik obrta, među preporučenim obrtima na stranici mape.}
+
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/passed-selenium6.png} 
+			        \caption{Rezultat sedmog Selenium testa}
+			    \label{fig:Rezultat sedmog Selenium testa}
+		\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+        \newpage
+		
+		\section{Dijagram razmještaja}
+            UML dijagram razmještaja je statički UML dijagram koji opisuje topologiju sustava i usredotočen je na odnos sklopovskih i programskih dijelova. Naš dijagram je specifikacijski dijagram te prikazuje pregled implementacije artefakata bez upućivanja na specifične slučajeve artefakata ili čvorova. Klijenti koriste web preglednik kako bi pristupili web poslužitelju. Arhitektura sustava je "klijent - poslužitelj", a komunikacija između računala klijenta i poslužitelja se odvija preko HTTP veze. Klijent se putem web preglednika spaja na korisničko sučelje (front-end) preko kojeg komunicira s poslužiteljskom aplikacijom (back-end). Korisničko sučelje je implementirano u radnom okviru React i pokrenuto je na platformi Render gdje se ujedno nalazi i SQL baza podataka.
+            
+            \begin{figure}[H]
+                \includegraphics[width=\textwidth]{slike/Dijagram razmjestaja.png} 
+                    \caption{Dijagram razmještaja}
+                \label{fig:Dijagram razmještaja}
+            \end{figure}
+  
+        \newpage
+			
+		
+		\section{Upute za puštanje u pogon}
+
+        \text Naš projekt je za puštanje u pogon koristio Render, objedinjeni oblak za izradu i pokretanje svih aplikacija i web stranica s besplatnim TLS certifikatima, globalnim CDN-om, DDoS zaštitom, privatnim mrežama i automatskim puštanjem u pogon koda s Gita.
+
+        \subsubsection{Konfiguracija backenda za puštanje u pogon}
+
+        Konfiguracija backenda kreće od Apache Tomcata\footnote{\url{https://tomcat.apache.org/}}. Tomcat je besplatna, otvorena implementacija tehnologija Jakarta Servlet, Jakarta Expression Language i WebSocket koja omogućuje "čistu Java" HTTP web poslužiteljsku okolinu u kojoj se također može izvoditi Java kod. Dakle, Tomcat je Java web aplikacijski posužitelj iako nije potpuni JEE aplikacijski poslužitelj. 
+        U našem projektu se koristi Spring Boot koji pruža ugrađenu verziju Apache Tomcata (7). Spring Boot automatski ugradi u pom.xml dependency potreban za Tomcat, koji je prema zadanim postavkama verzija 7. U projektu se backend pokreće kao Tomcat server te kreće slušati nakon puštanja aplikacije u pogon. 
+        \begin{figure}[H]
+                \includegraphics[width=\textwidth]{slike/deploy-backend.png} 
+                    \caption{Pokretanje Tomcat servera}
+                \label{fig:Pokretanje Tomcat servera}
+            \end{figure} 
+        Poviše je prikazan isječak koda koji se odvija u Renderu. Prikazuje početak slušanja Tomcata na vratima 10000 s konteksnim putem "/api" koji će se pobliže objasniti u potpoglavlju Konfiguracija frontenda za puštanje u pogon.
+        Dodatne instalacije Tomcata nisu bili potrebne te ga iz tog razloga nećemo obrađivati. 
+
+        Za CI (kontinuiranu integraciju) baze podataka i pojednostavljeni proces prerade promjene baze podataka koristi se Liquidbase\footnote{\url{https://www.liquibase.org/}}. U našem projektu je bilo potrebno napraviti datoteku pod nazivom "changelog\textunderscore master.xml" koju Liquidbase koristi kao konfiguracijsku datoteku. U njoj se definira način praćenja i upravljanja promjenama nad bazom podataka kod aplikacije koja je puštena u pogon, nakon što su nad bazom izvršeni određeni upiti.
+
+        Za puštanje backenda u pogon je također važan Dockerfile\footnote{\url{https://docs.docker.com/get-docker/}}. Docker je otvorena platforma za razvoj, isporuku i pokretanje aplikacija koja omogućuje odvajanje aplikacije od infrastrukture. Izgled našeg Dockerfilea je sljedeći:
+        \begin{figure}[H]
+            \includegraphics[width=\textwidth]{slike/kod.png} 
+        \end{figure}
+        
+        
+        Skraćeno: u dockerfileu definiramo što ćemo iz backend datoteke staviti u container koji se izvodi kao .JAR pogodan za izvođenje na poslužitelju.
+
+        Nadalje potrebna komponenta za povezivanje s frontendom, ali isto tako i puštanje aplikacije u pogon je Spring Boot anotacija @CrossOrigin. Cross-origin dijeljenje resursa (CORS) je standardni protokol koji definira interakciju između preglednika i poslužitelja za sigurno rukovanje HTTP zahtjevima s različitim izvorima. Jednostavno rečeno, cross-origin HTTP zahtjev je zahtjev prema određenom resursu koji se nalazi na različitom resursu, točnije domeni, protokolu i vratima, od onog klijenta koji izvršava zahtjev. U našem projektu se @CrossOrigin koristi u MapController.java i ProfileController.java unutar paketa hr.fer.progi.simplicity.controllers. Za lokalni rad koristio se: \newline
+        @CrossOrigin(origins="http://localhost:3000") , dok se za globalni rad, to jest u aplikaciji puštenoj u pogon koristi se @CrossOrigin(origins="https://dogfriendly-frontend.onrender.com"). Na navedenoj adresi se može dosegnuti frontend ppušten u pogon, no to će biti pobliže objašnjeno u dijelu puštanja aplikacije u pogon preko Rendera.
+        
+        
+        Konfiguraciju backenda za puštanje u pogon ćemo završiti dijelom koda application.properties iz našeg projekta.
+
+            \begin{figure}[H]
+                \includegraphics[width=\textwidth]{slike/kod2.png} 
+            \end{figure}
+        
+        Unatoč tome što se konfiguracija baze podataka za puštanje u pogon mogla zasebno odraditi, s obzirom da ona nema svoje zasebne upute za konfiguraciju i posve je isprepletena s backendom, obrađena je kroz backend.
+
+        \newpage
+        \subsubsection{Konfiguracija frontenda za spajanje s backendom}
+        Kako bi se frontend uspješno povezao s backendom, što u konačnici omogućuje točan prijenos podataka od baze sve do korisnika, na frontendu je korišten axios\footnote{\url{https://axios-http.com/docs/intro}}. Axios je HTTP klijent temeljen na obećanjima za node.js i preglednik. Izomorfan je (može se izvoditi u pregledniku i u node.js s istim baznim kodom). Na strani poslužitelja koristi izvorni node.js HTTP modul, dok na klijentu (pregledniku) koristi XMLHttpRequests. XMLHttpRequest\footnote{\url{https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest}} objekti se koriste za interakciju sa serverima. Podaci se mogu dohvatiti s URL-a bez potrebe za punim osvježavanjem stranice, što omogućuje dijelovima stranice osvježavanje bez prekida korisnikovih radnji.
+        U našem kodu se axios poziva u obliku: 
+        export const AxiosInstance = axios.create({ baseURL: 'https://dogfriendly-webservice-fc8h.onrender.com/api/' })
+        U prijevodu, axiosom definiramo komunikaciju s backendom, to jest odakle očekujemo podatke i gdje ih šaljemo. "baseUrl" je u ovom slučaju link preko kojeg se dohvaća backend koji je pušten u pogon. Dodatak na navedeni link, "/api", bi se mogao protumačiti kao dodatan stupanj sigurnosti, to jest specifikacija komunikacije. U lokalnoj verziji web aplikacije smo za "baseUrl" koristili "http://localhost:3000/api".
+        AxiosInstance konstanta je nova instanca axiosa koja se koristi za prilagođenu komunikaciju.
+        
+        \begin{figure}[H]
+            \includegraphics[width=\textwidth]{slike/kod3.png} 
+        \end{figure}
+
+        Navedeni kod prikazuju speficičan primjer prilagođene komunikacije iz našeg projekta.
+        Interceptor\footnote{\url{https://axios-http.com/docs/interceptors}} je metoda Axios klase koja presretne svaki zahtjev i/ili odgovor i odradio dio koda naveden u then bloku.
+        U primjeru poviše interceptor presretne zahtjev prije nego što je poslan te u zaglavlje umetne token (spremljen u SessionStorageu). Token služi kao zaštita podataka korisnika tijekom komunikacije. Kako se ne bi direktno slalo korisničko ime ili identifikator kao element raspoznaje koristi se generirani token. Token omogućuje frontendu i backendu informaciju o tome postoji li trenutni korisnik i tko je on.
+        Svi budući zahtjevi (post, put, get) idu preko AxiosInstancea.
+
+            \subsubsection{Postavljanje varijable za puštanje aplikacije u pogon preko Rendera}
+
+            Za puštanje web aplikacije u pogon preko Rendera je potreban korisnički račun.
+            Jednom ulogirani korisnik ima više mogućnosti kreiranja, no mi ćemo koristiti "PostgreSQL" za kreiranje online baze podataka u oblaku i "Web Service" za puštanje backenda i frontenda u pogon (zasebno).
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy1.png} 
+			        \caption{Kreiranje online baze podataka}
+			    \label{fig:Kreiranje online baze podataka}
+		    \end{figure}
+            \newpage
+
+            Kreiranje baze u online oblaku je poprilično jednostavno. Unosi se ime baze, odabire regija u kojoj je baza aktivna, u našem slučaju Frankfurt (EU Central) i verzija PostgreSQLa.
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy2.png} 
+			        \caption{Unos parametara za izradu online baze podataka}
+			    \label{fig:Unos parametara za izradu online baze podataka}
+		    \end{figure}
+            Pod informacijama kreirane baze se nalaze osnovni podaci o kreaciji, ali i informacije o povezanosti baze. 
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy3.png} 
+			        \caption{Osnovni podaci o online bazi podataka}
+			    \label{fig:Osnovni podaci o online bazi podataka}
+		    \end{figure}
+            Na slici poviše su sve informacije potrebne za povezivanje "Web Service" backenda s napravljenom bazom.
+
+            Nadalje kreiramo "Web Service". U našem slučaju, zbog jednostavnosti je naš Render račun povezan s GitLabom. Prilikom kreiranja Web Servicea daje nam se mogućnost povezivanja s jednim od korisnikovih Git repozitorija, ali i nekog javnog Git repozitorija. Nakon odabira repozitorija (u našem slučaju simplicity1/projektrepo) odabiremo ime našeg web servisa (dogfriendly\textunderscore webservice), regiju (Frankfurt), granu s Git repozitorija (main), korijenski direktorij (IzvorniKod/backend), razvojno okruženje (Docker).
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy5.png} 
+			        \caption{Odabir parametara kod kreiranje Web Servicea}
+			    \label{fig:Odabir parametara kod kreiranje Web Servicea}
+		    \end{figure}
+            Otvaramo napredne postavke i dodajemo varijable okruženja "DB\textunderscore USERNAME", "DB\textunderscore PASS" i "DB\textunderscore URL" čije su vrijednosti redom "Username", "Password" i pomalo izmjenjeni "Internal Database URL" iz informacija baze podataka na slici \ref{fig:Dodavanje naprednih postavki kod kreiranja Web Servicea}. Za DB\textunderscore URL se koristio format "jdbc:postgresql://hostname:port/database". Zadnji korak je pod "Dockerfile Path" unijeti put do našeg Dockerfilea u odnosu na korijen repozitorija, što je u ovom slučaju ./docker/maven/Dockerfile.
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy6.png} 
+			        \caption{Dodavanje naprednih postavki kod kreiranja Web Servicea}
+			    \label{fig:Dodavanje naprednih postavki kod kreiranja Web Servicea}
+		    \end{figure}
+            Puštanje backenda u pogon započinje klikom na gumb "Create Web Service" nakon čega se gradi backend i pokreće "deploy". Ovisno o rezultatu deploya, status je ili "Deploy succeded/Live" ili "Deploy failed". Među informacijama upravo napravljenog Web Servicea možemo pronaći link preko kojeg mu se može pristupiti što će biti potrebno za puštanje u pogon frontenda.
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy7.png} 
+			        \caption{Link za backend}
+			    \label{fig:Link za backend}
+		    \end{figure}
+            \newpage
+
+            Puštanje frontenda u pogon je u početku isto. Kreiramo novi Web Service, odabiremo isti Git repozitorij, ime (dogfriendly\textunderscore frontend), regiju, granu repozitorija i korijen direktorija (IzvorniKod/frontend).
+            Kao okruženje izabiremo Node. Naredba za izgradnju je "yarn build", a naredbe za pokretanje "yarn start-prod".
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy8.png} 
+			        \caption{Odabir parametara za deploy frontenda}
+			    \label{fig:Odabir parametara za deploy frontenda}
+		    \end{figure}
+            Pod napredne postavke se dodaje varijabla okruženja "API\textunderscore BASE\textunderscore URL" čija je vrijednost prethodno spomenuta web adresa na kojoj se može dosegnuti backend.
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy9.png} 
+			        \caption{Dodavanje naprednih postavki prilikom deploya frontenda}
+			    \label{fig:Dodavanje naprednih postavki prilikom deploya frontenda}
+		    \end{figure}
+            Sve što je preostalo je kliknuti "Create Web Service" gumb. Rezultati puštanja u pogon frontenda su identični backendu za uspjeh/neuspjeh.
+		  Frontend, kao i sveukupna funkcionalna web aplikacija (baza+backend+frontend) su pušteni u pogon i dostupni na internetskoj stranici čiji se link nalazi u podacima dogfriendly\textunderscore frontend.
+            \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/deploy10.png} 
+			        \caption{Link za frontend}
+			    \label{fig:Link za frontend}
+		    \end{figure}
+
+      \subsubsection{Prikaz podataka iz baze nakon puštanja u pogon}
+
+        Nakon puštanja web aplikacije zanimaju nas podaci koji se nalaze u njoj. Nažalost Render nema mogućnost prikaza baze, tablica i njezinog sadržaja, već ju je potrebno povezat s nečime što može prikazati te podatke. U nastavku su kratke upute za prikaz podataka iz online oblak baze puštene u pogon preko pgAdmina.
+        Prvi korak je provjeriti ima li korisnik najnoviju verziju pgAdmina. U slučaju da nema, potrebno ga je ažurirati.
+        Nadalje, potrebno je ulogirati se, ako postoji ta mogućnost.
+        Drugi korak je desni klik na Server pa Register onda opet Server.
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/baza1.png} 
+			        \caption{Prikaz koraka za login na bazu podataka}
+			    \label{fig:Prikaz koraka za login na bazu podataka}
+		    \end{figure}
+        Treći korak:
+        Kada se otvori novi prozor upisati podatke koje se mogu naći u informacijama baze puštene u pogon.
+        Pod ime se upisuje ime baze.
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/baza2.png} 
+			        \caption{Upis imena baze podataka}
+			    \label{fig:Upis imena baze podataka}
+		    \end{figure}
+        U Connectionu unijeti Port, Username i Password identično podacima koji se mogući naći pod informacija baze puštene u pogon. Maintenance database je identičan Database, dok se Hostname/address vadi iz External Database URLa na sljedeći način:
+        ako je format vanjskog URL baze postgres://aaa:bbb@ccc.frankfurt-postgres.render.com/ddd, u Hostname se upisuje ccc.frankfurt-postgres.render.com.
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/baza3.png} 
+			        \caption{Unos dodatnih parametara za prikaz baze}
+			    \label{fig:Unos dodatnih parametara za prikaz baze}
+		    \end{figure}
+        Na posljetku u SSL-u pod SSL mode postaviti "Require".
+        \begin{figure}[H]
+			    \includegraphics[width=\textwidth]{slike/baza4.png} 
+			        \caption{Postavljanje SSL-a na Require}
+			    \label{fig:Postavljanje SSL-a na Require}
+		    \end{figure}
+        Kliknuti Save i pristupiti bazi i podacima koji su spremljeni u nju.
+
+        
+			\eject 
