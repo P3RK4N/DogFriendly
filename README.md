@@ -1,8 +1,8 @@
-# DogFriendly
+# DogFriendly - Pet Business Locator Web Application
+
+![DogFriendly](https://github.com/P3RK4N/DogFriendly/assets/87949029/b39feacb-2264-4c63-8bec-45e4e70feeb1)
 
 Website (DEPRECATED): https://dogfriendly-frontend.onrender.com/map
-
-# Pet Business Locator Web Application
 
 ## Overview
 
@@ -13,6 +13,7 @@ This web application allows users to explore and mark pet-related businesses and
 - **Backend:**
   - Java
   - Spring Boot
+  - PostgreSQL
 
 - **Frontend:**
   - React
